@@ -4,18 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============ MENÚ HAMBURGUESA ============
     const hamburger = document.getElementById('hamburgerBtn');
     const navMenu = document.getElementById('navMenu');
-    const hamburgerSpans = document.querySelectorAll('.hamburger span');
     
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            
-            // Animación del ícono hamburguesa
-            if (hamburgerSpans.length >= 3) {
-                hamburgerSpans[0].classList.toggle('rotate-down');
-                hamburgerSpans[1].classList.toggle('hide');
-                hamburgerSpans[2].classList.toggle('rotate-up');
-            }
+            hamburger.classList.toggle('active');
         });
         
         // Cerrar menú al hacer clic en un enlace
@@ -23,11 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
-                if (hamburgerSpans.length >= 3) {
-                    hamburgerSpans[0].classList.remove('rotate-down');
-                    hamburgerSpans[1].classList.remove('hide');
-                    hamburgerSpans[2].classList.remove('rotate-up');
-                }
+                hamburger.classList.remove('active');
             });
         });
     }
@@ -51,11 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Si el menú móvil está abierto, cerrarlo
                 if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
-                    if (hamburgerSpans.length >= 3) {
-                        hamburgerSpans[0].classList.remove('rotate-down');
-                        hamburgerSpans[1].classList.remove('hide');
-                        hamburgerSpans[2].classList.remove('rotate-up');
-                    }
+                    hamburger.classList.remove('active');
                 }
             }
         });
@@ -390,58 +375,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.scrollY > 50) {
                 navbar.style.background = 'rgba(255,255,255,0.98)';
                 navbar.style.backdropFilter = 'blur(10px)';
+                navbar.style.webkitBackdropFilter = 'blur(10px)';
                 navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
             } else {
                 navbar.style.background = 'white';
                 navbar.style.backdropFilter = 'none';
+                navbar.style.webkitBackdropFilter = 'none';
                 navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
             }
         }
         updateActiveMenu();
     });
-    
-    // ============ ESTILOS DEL MENÚ HAMBURGUESA ============
-    const style = document.createElement('style');
-    style.textContent = `
-        .hamburger span {
-            display: block;
-            transition: all 0.3s ease;
-        }
-        
-        .hamburger span.rotate-down {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-        
-        .hamburger span.hide {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-        
-        .hamburger span.rotate-up {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-        
-        .success-message i {
-            animation: successPulse 1s ease;
-        }
-        
-        @keyframes successPulse {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-        }
-        
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding: 0 25px 20px;
-        }
-    `;
-    document.head.appendChild(style);
     
 });
